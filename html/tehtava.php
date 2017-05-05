@@ -6,12 +6,9 @@
 <div id="container">
     <div id="content">
         
-        <h1>Tunnistatuminen</h1>
-
-        <form action="login.php" method="post">
-        	OpiskelijaNro: <input type="text" name="opNro"><br>
+        <form action="tarkista.php" method="post">
+        	Kysely: <textarea rows="5" cols="40"></textarea>
         	<input type="submit">
-
         </form>
         
 
