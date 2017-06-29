@@ -23,7 +23,6 @@
 
     $t_id = $_POST['t_id'];
 
-    echo "ID: ON " . $t_id . " Prööt<br>";
 
     $kuvaus = $_POST['kuvaus'];
     $kyselytyyppi = $_POST['kyselytyyppi'];

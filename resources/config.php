@@ -3,13 +3,6 @@
 
  */
 $config = array(
-    "db" => array(
-        "dbname"    => "dbname",
-        "username"  => "username",
-        "password"  => "password",
-        "host"      => "host",
-        "port"      => "5432"
-    ),
     "dbconnection" => "host=host port=port dbname=dbname user=username password=password",
 );
 
