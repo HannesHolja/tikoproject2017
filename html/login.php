@@ -31,10 +31,36 @@
 			$_SESSION["paa_aine"] = $arr["paa_aine"];
 			$_SESSION["r_id"] = $arr["r_id"];
 
+			/* GET USERS ROLE */
+
+			$result = pg_query("SELECT nimi FROM rooli WHERE r_id=" . $_SESSION["r_id"]);
+
+			if(!$result)
+			{
+				echo "Virhe roolien haussa! " . $_POST['opNro'];
+				exit;
+			}
+
+			$arr = pg_fetch_array($result);
+
+			$_SESSION["rooli"] = $arr['nimi'];
+
+			/* GET USERS RIGHTS */
+			$result = pg_query("SELECT toiminto FROM oikeus WHERE r_id=" . $_SESSION['r_id']);
+
+			$arr = pg_fetch_all_columns($result);
+
+			$_SESSION['oikeudet'] = $arr;
 
 			pg_close($con);
 
 			header('Location: menu.php');	
+ 		}
+
+ 		else
+ 		{
+ 			header('Location: index.php');
+			exit;
  		}
 
    

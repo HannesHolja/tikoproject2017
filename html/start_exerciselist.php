@@ -16,8 +16,7 @@
     	die("Tietokantayhteyden luominen epäonnistui.");
     }
 
-    $result = pg_query("SELECT * FROM tehtava, tehtava_tehtavalista
-    					WHERE tl_id=$_GET[listId] AND tehtava.t_id=tehtava_tehtavalista.t_id");
+    $result = pg_query("SELECT * FROM tehtava, tehtava_tehtavalista WHERE tl_id=$_GET[listId] AND tehtava.t_id=tehtava_tehtavalista.t_id ORDER BY tehtava.t_id ASC");
 
     if(!$result)
     {
@@ -33,11 +32,13 @@
 
     //Create new record to databases Session table
 
+    /* START NEW SESSION -TRANSACTION */
+
     pg_query("BEGIN");
 
     $result = pg_query("INSERT INTO 
-    	sessio (tl_id, lopetushetki, alkamishetki) 
-    	VALUES ($_GET[listId], current_timestamp(0), current_timestamp(0)) RETURNING *");
+    	sessio (k_id ,tl_id, lopetushetki, alkamishetki) 
+    	VALUES ($_SESSION[k_id], $_GET[listId], current_timestamp(0), current_timestamp(0)) RETURNING *");
 
     if(!$result)
     {
@@ -51,16 +52,18 @@
 
     pg_query("COMMIT");
 
+    /* UNSET ALL EXERCISE SESSION VARIABLES JUST IN CASE */
 
-    //print_r($arra);
+    unset($_SESSION['s_id']);
+
+    
 
     $_SESSION['s_id'] = $arra['s_id'];
     $_SESSION['yrityksia'] = 3;
     $_SESSION['tehtnro'] = 0;
+    $_SESSION['mis'] = "";
 
-    //echo "SESSION ID : " . $_SESSION['s_id'];
 
-    //print_r($_SESSION['tehtava_taulukko'][$_SESSION['tehtnro']]);
 
 
 
@@ -69,6 +72,5 @@
 
     header("Location: exercise.php");
 
-    //header("Location: menu.php");
 
 ?>

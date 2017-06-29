@@ -3,7 +3,7 @@
      
     require_once(TEMPLATES_PATH . "/header.php");
 ?>
-<div id="container">
+<div class="container container-table">
     <div id="content">
         
         <h1>Tunnistatuminen</h1>
